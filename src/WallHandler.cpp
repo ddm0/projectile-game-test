@@ -16,7 +16,7 @@ void WallHandler::createMainWall() {
     }
 }
 
-void WallHandler::createExtraWall(Vector2f pos, Vector2f size) {
+void WallHandler::createExtraWall(sf::Vector2f pos, sf::Vector2f size) {
     if (extraWallCount < maxExtraWall) {
         extraWallCount++;
         extrawall.resize(extraWallCount);
@@ -26,20 +26,20 @@ void WallHandler::createExtraWall(Vector2f pos, Vector2f size) {
 }
 
 void WallHandler::createTopWall() {
-    mainwall[0].setSize(Vector2f(screenwidth, 50));
+    mainwall[0].setSize(sf::Vector2f(screenwidth, 50));
 }
 
 void WallHandler::createBotWall() {
-    mainwall[1].setSize(Vector2f(screenwidth, 50));
+    mainwall[1].setSize(sf::Vector2f(screenwidth, 50));
     mainwall[1].setPosition(0, screenheight - 50);
 }
 
 void WallHandler::createLeftWall() {
-    mainwall[2].setSize(Vector2f(50, screenheight));
+    mainwall[2].setSize(sf::Vector2f(50, screenheight));
 }
 
 void WallHandler::createRightWall() {
-    mainwall[3].setSize(Vector2f(50, screenheight));
+    mainwall[3].setSize(sf::Vector2f(50, screenheight));
     mainwall[3].setPosition(screenwidth - 50, 0);
 }
 

@@ -13,7 +13,7 @@ namespace WallHandler {
     void createLeftWall();
     void createRightWall();
     void createMainWalls();
-    void createExtraWall(Vector2f p, Vector2f s);
+    void createExtraWall(sf::Vector2f p, sf::Vector2f s);
     Wall& getMainWall(int i);
     Wall& getExtraWall(int i);
     int getExtraWallCount();

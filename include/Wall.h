@@ -2,9 +2,7 @@
 #define WALL_H
 #include <SFML/Graphics.hpp>
 
-using namespace sf;
-
-class Wall : public RectangleShape {
+class Wall : public sf::RectangleShape {
     public:
         Wall();
 
