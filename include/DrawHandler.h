@@ -6,8 +6,7 @@
 
 extern "C" RenderWindow win;
 
-namespace DrawHandler
-{
+namespace DrawHandler {
     void drawWalls();
     void drawObjects();
     void drawBoxes();

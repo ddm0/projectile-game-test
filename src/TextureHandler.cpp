@@ -1,19 +1,19 @@
 #include "TextureHandler.h"
 
-namespace TextureHandler{
+namespace TextureHandler {
     Texture ball;
     Texture player;
 }
 
-void TextureHandler::init(){
+void TextureHandler::init() {
     ball.loadFromFile("images/ball.png");
     player.loadFromFile("images/player.png");
 }
 
-Texture& TextureHandler::getBallTexture(){
+Texture& TextureHandler::getBallTexture() {
     return ball;
 }
 
-Texture& TextureHandler::getPlayerTexture(){
+Texture& TextureHandler::getPlayerTexture() {
     return player;
 }

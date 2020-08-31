@@ -5,18 +5,18 @@ Wall::Wall()
     //ctor
 }
 
-int Wall::getTop(){
+int Wall::getTop() {
     return getGlobalBounds().top;
 }
 
-int Wall::getBot(){
-    return getGlobalBounds().top+getGlobalBounds().height;
+int Wall::getBot() {
+    return getGlobalBounds().top + getGlobalBounds().height;
 }
 
-int Wall::getLeft(){
+int Wall::getLeft() {
     return getGlobalBounds().left;
 }
 
-int Wall::getRight(){
-    return getGlobalBounds().left+getGlobalBounds().width;
+int Wall::getRight() {
+    return getGlobalBounds().left + getGlobalBounds().width;
 }

@@ -3,12 +3,10 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-namespace BoxHandler
-{
+namespace BoxHandler {
     void createBox(); //aaaa
-
-    int getBoxCount();
     void destroyBox(sf::RectangleShape* i);
+    int getBoxCount();
     sf::RectangleShape* getBox(int i);
     //bool checkCol(Object* a, Object b);
 };

@@ -4,8 +4,7 @@
 
 using namespace sf;
 
-class Wall : public RectangleShape
-{
+class Wall : public RectangleShape {
     public:
         Wall();
 

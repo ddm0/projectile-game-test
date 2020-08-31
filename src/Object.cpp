@@ -1,116 +1,128 @@
 #include "Object.h"
 
-Object::Object(sf::Texture& a): sf::Sprite(a){
+Object::Object(sf::Texture& a): sf::Sprite(a) {
     width = getGlobalBounds().width;
     height = getGlobalBounds().height;
 
-    for(int i=0;i<6;i++){
+    for (int i = 0; i < 6; i++) {
         hitLines[i].color = sf::Color::Green;
     }
 }
 
-bool Object::isCornerIntersect(Wall& a){
-    if(getLeft() == a.getRight() || getRight() == a.getLeft()){
-        if(getBot() == a.getTop() || getTop() == a.getBot()){
+bool Object::isCornerIntersect(Wall& a) {
+    if ((getLeft() == a.getRight() || getRight() == a.getLeft()) &&
+        (getBot() == a.getTop() || getTop() == a.getBot())) {
             return true;
-        }
     }
     return false;
 }
 
-bool Object::isAgainstTop(Wall& a){
+bool Object::isAgainstTop(Wall& a) {
     return segmentIntersectsRectangle(getGlobalBounds(),
-                                      sf::Vector2f(a.getLeft()+1,a.getTop()),
-                                      sf::Vector2f(a.getRight()-1,a.getTop())
+                                      sf::Vector2f(a.getLeft() + 1, a.getTop()),
+                                      sf::Vector2f(a.getRight() - 1, a.getTop())
                                       );
 }
-bool Object::isAgainstBot(Wall& a){
+bool Object::isAgainstBot(Wall& a) {
     return segmentIntersectsRectangle(getGlobalBounds(),
-                                      sf::Vector2f(a.getLeft()+1,a.getBot()),
-                                      sf::Vector2f(a.getRight()-1,a.getBot())
+                                      sf::Vector2f(a.getLeft() + 1, a.getBot()),
+                                      sf::Vector2f(a.getRight() - 1, a.getBot())
                                       );
 }
-bool Object::isAgainstLeft(Wall& a){
+bool Object::isAgainstLeft(Wall& a) {
     return segmentIntersectsRectangle(getGlobalBounds(),
-                                      sf::Vector2f(a.getLeft(),a.getTop()+1),
-                                      sf::Vector2f(a.getLeft(),a.getBot()-1)
+                                      sf::Vector2f(a.getLeft(), a.getTop() + 1),
+                                      sf::Vector2f(a.getLeft(), a.getBot() - 1)
                                       );
 }
-bool Object::isAgainstRight(Wall& a){
+bool Object::isAgainstRight(Wall& a) {
     return segmentIntersectsRectangle(getGlobalBounds(),
-                                      sf::Vector2f(a.getRight()+1,a.getTop()+1),
-                                      sf::Vector2f(a.getRight()+1,a.getBot()-1)
+                                      sf::Vector2f(a.getRight() + 1, a.getTop() + 1),
+                                      sf::Vector2f(a.getRight() + 1, a.getBot() - 1)
                                       );
 }
-bool Object::isAgainst(Wall& a){
-    if(isAgainstTop(a) || isAgainstBot(a) || isAgainstLeft(a) || isAgainstRight(a)){
+bool Object::isAgainst(Wall& a) {
+    if (isAgainstTop(a) || isAgainstBot(a) || isAgainstLeft(a) || isAgainstRight(a)) {
         return true;
     }
     return false;
 }
 
 /*
-bool Object::isAgainstTop(Object a){
+bool Object::isAgainstTop(Object a) {
     return isAgainstTop(a.getGlobalBounds());
 }
-bool Object::isAgainstBot(Object a){
+bool Object::isAgainstBot(Object a) {
     return isAgainstBot(a.getGlobalBounds());
 }
-bool Object::isAgainstLeft(Object a){
+bool Object::isAgainstLeft(Object a) {
     return isAgainstLeft(a.getGlobalBounds());
 }
-bool Object::isAgainstRight(Object a){
+bool Object::isAgainstRight(Object a) {
     return isAgainstRight(a.getGlobalBounds());
 }
-bool Object::isAgainst(Object a){
+bool Object::isAgainst(Object a) {
     return isAgainst(a.getGlobalBounds());
 }
 
 
-bool Object::isAgainstTop(sf::FloatRect a){
+bool Object::isAgainstTop(sf::FloatRect a) {
 
 }
 
-bool Object::isAgainstBot(sf::FloatRect a){
+bool Object::isAgainstBot(sf::FloatRect a) {
 
 }
 
-bool Object::isAgainstLeft(sf::FloatRect a){
+bool Object::isAgainstLeft(sf::FloatRect a) {
 
 }
 
-bool Object::isAgainstRight(sf::FloatRect a){
+bool Object::isAgainstRight(sf::FloatRect a) {
 
 }
 
-bool Object::isAgainst(sf::FloatRect a){
+bool Object::isAgainst(sf::FloatRect a) {
 
 }
 */
 
-bool Object::isAgainstFloor(){
+bool Object::isAgainstFloor() {
     return isAgainstTop(WallHandler::getBotWall());
 }
 
-bool Object::isAgainstLeftWall(){
+bool Object::isAgainstLeftWall() {
     return isAgainstRight(WallHandler::getLeftWall());
 }
 
-bool Object::isAgainstRightWall(){
+bool Object::isAgainstRightWall() {
     return isAgainstLeft(WallHandler::getRightWall());
 }
 
-bool Object::isAgainstCeiling(){
+bool Object::isAgainstCeiling() {
     return isAgainstBot(WallHandler::getTopWall());
 }
 
-bool Object::isAgainstAnyX(){
-    if(isAgainstLeftWall() || isAgainstRightWall()){
+bool Object::isAgainstAnyX() {
+    if (isAgainstLeftWall() || isAgainstRightWall()) {
         return true;
     }
 
-    for(int i=0;i<WallHandler::getExtraWallCount();i++){
-        if(isAgainstLeft(WallHandler::getExtraWall(i)) || isAgainstRight(WallHandler::getExtraWall(i))){
+    for (int i = 0; i < WallHandler::getExtraWallCount(); i++) {
+        if (isAgainstLeft(WallHandler::getExtraWall(i)) || isAgainstRight(WallHandler::getExtraWall(i))) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Object::isAgainstAnyY() {
+    if (isAgainstCeiling() || isAgainstFloor()) {
+        return true;
+    }
+
+    for (int i = 0; i < WallHandler::getExtraWallCount(); i++) {
+        if (isAgainstTop(WallHandler::getExtraWall(i)) || isAgainstBot(WallHandler::getExtraWall(i))) {
             return true;
         }
     }
@@ -118,36 +130,22 @@ bool Object::isAgainstAnyX(){
     return false;
 }
 
-bool Object::isAgainstAnyY(){
-    if(isAgainstCeiling()||isAgainstFloor()){
-        return true;
-    }
-
-    for(int i=0;i<WallHandler::getExtraWallCount();i++){
-        if(isAgainstTop(WallHandler::getExtraWall(i)) || isAgainstBot(WallHandler::getExtraWall(i))){
-            return true;
-        }
-    }
-
-    return false;
-}
-
-bool Object::isAgainstAny(){
-    if(isAgainstAnyX() || isAgainstAnyY()){
+bool Object::isAgainstAny() {
+    if (isAgainstAnyX() || isAgainstAnyY()) {
         return true;
     }
     return false;
 }
 
 /*
-bool Object::isAgainstAny(){
+bool Object::isAgainstAny() {
 
-    if(isAgainstMain()){
+    if (isAgainstMain()) {
         return true;
     }
 
-    for(int i=0;i++;i<WallHandler::getExtraWallCount()){
-        if(isAgainst(WallHandler::getExtraWall(i))){
+    for (int i=0;i++;i<WallHandler::getExtraWallCount()) {
+        if (isAgainst(WallHandler::getExtraWall(i))) {
             return true;
         };
     }
@@ -155,7 +153,7 @@ bool Object::isAgainstAny(){
 }
 */
 
-bool Object::isCornerInterAny(){
+bool Object::isCornerInterAny() {
 
 
 
@@ -223,39 +221,39 @@ bool LineCollision( const sf::Vector2<float>& A1, const sf::Vector2<float>& A2,
     sf::Vector2<float> b(B2-B1);
 
     float f = PerpDot(a,b);
-    if(!f)      // lines are parallel
+    if (!f)      // lines are parallel
         return false;
 
     sf::Vector2<float> c(B2-A2);
     float aa = PerpDot(a,c);
     float bb = PerpDot(b,c);
 
-    if(f < 0)
+    if (f < 0)
     {
-        if(aa > 0)     return false;
-        if(bb > 0)     return false;
-        if(aa < f)     return false;
-        if(bb < f)     return false;
+        if (aa > 0)     return false;
+        if (bb > 0)     return false;
+        if (aa < f)     return false;
+        if (bb < f)     return false;
     }
     else
     {
-        if(aa < 0)     return false;
-        if(bb < 0)     return false;
-        if(aa > f)     return false;
-        if(bb > f)     return false;
+        if (aa < 0)     return false;
+        if (bb < 0)     return false;
+        if (aa > f)     return false;
+        if (bb > f)     return false;
     }
 
     output = ((B2 - B1) * (1 - (aa / f))) + B1;
     return true;
 }
 
-bool Object::collisionDist(RectangleShape r, int &returnDist, Vector2i &tpCoord){
+bool Object::collisionDist(RectangleShape r, int &returnDist, Vector2i &tpCoord) {
     FloatRect bound = r.getGlobalBounds();
     sf::VertexArray sides = sf::VertexArray(sf::Lines, 4);
     sf::Vector2f hitPos[3];
     int sideC = 0;
     bool L[3];
-    float dist[3] = {0,0,0};
+    float dist[3] = {0, 0, 0};
 
     auto setHitLinePos = [&](int l1p1, int l1p2, int l2p1, int l2p2, int l3p1, int l3p2)
     {
@@ -263,90 +261,90 @@ bool Object::collisionDist(RectangleShape r, int &returnDist, Vector2i &tpCoord)
         hitLines[2].position = sf::Vector2f(l2p1, l2p2);
         hitLines[4].position = sf::Vector2f(l3p1, l3p2);
 
-        for(int i=0;i<5;i+=2){
-            hitLines[i+1].position = sf::Vector2f(hitLines[i].position+sf::Vector2f(vel));
+        for (int i = 0; i < 5; i += 2) {
+            hitLines[i+1].position = sf::Vector2f(hitLines[i].position + sf::Vector2f(vel));
         }
     };
 
-    auto setSide = [&](char s){ //*2+1 wont work if more than 2 sides
-        if(s == 'T'){
+    auto setSide = [&](char s) { //*2+1 wont work if more than 2 sides
+        if (s == 'T') {
             sides[sideC*2].position = sf::Vector2f(bound.left, bound.top);
-            sides[sideC*2+1].position = sf::Vector2f(bound.left+bound.width, bound.top);
+            sides[sideC*2+1].position = sf::Vector2f(bound.left + bound.width, bound.top);
         }
-        else if(s == 'B'){
-            sides[sideC*2].position = sf::Vector2f(bound.left, bound.top+bound.height);
+        else if (s == 'B') {
+            sides[sideC*2].position = sf::Vector2f(bound.left, bound.top + bound.height);
             sides[sideC*2+1].position = sf::Vector2f(bound.left+bound.width, bound.top+bound.height);
         }
-        else if(s == 'L'){
+        else if (s == 'L') {
             sides[sideC*2].position = sf::Vector2f(bound.left, bound.top);
-            sides[sideC*2+1].position = sf::Vector2f(bound.left, bound.top+bound.height);
+            sides[sideC*2+1].position = sf::Vector2f(bound.left, bound.top + bound.height);
         }
-        else if(s == 'R'){
-            sides[sideC*2].position = sf::Vector2f(bound.left+bound.width, bound.top);
-            sides[sideC*2+1].position = sf::Vector2f(bound.left+bound.width, bound.top+bound.height);
+        else if (s == 'R') {
+            sides[sideC*2].position = sf::Vector2f(bound.left + bound.width, bound.top);
+            sides[sideC*2+1].position = sf::Vector2f(bound.left + bound.width, bound.top + bound.height);
         }
         sideC++;
     };
 
-    auto checkCol = [&](){
-        for(int i=0;i<3;i++){
+    auto checkCol = [&]() {
+        for (int i = 0; i < 3; i++) {
             L[i] = LineCollision(hitLines[i*2].position, hitLines[i*2+1].position, sides[0].position, sides[1].position, hitPos[i]);
 
-            if(!L[i] && sideC==2){
+            if (!L[i] && sideC == 2) {
                 L[i] = LineCollision(hitLines[i*2].position, hitLines[i*2+1].position, sides[2].position, sides[3].position, hitPos[i]);
             }
         }
     };
 
-    int halfH = getTop()+(height)/2;
-    int halfW = getLeft()+(width)/2;
+    int halfH = getTop() + (height) / 2;
+    int halfW = getLeft() + (width) / 2;
 
-    if(vel.x>0 && vel.y == 0){
+    if (vel.x > 0 && vel.y == 0) {
         setHitLinePos(getRight(), getBot(),
                       getRight(), halfH,
                       getRight(), getTop());
         setSide('L');
     }
-    else if(vel.x>0 && vel.y<0){
+    else if (vel.x > 0 && vel.y < 0) {
         setHitLinePos(getRight(), getBot(),
                       getRight(), getTop(),
                       getLeft(), getTop());
         setSide('L');
         setSide('B');
     }
-    else if(vel.x==0 && vel.y<0){
+    else if (vel.x == 0 && vel.y < 0) {
         setHitLinePos(getRight(), getTop(),
                       halfW, getTop(),
                       getLeft(), getTop());
         setSide('B');
     }
-    else if(vel.x<0 && vel.y<0){
+    else if (vel.x < 0 && vel.y < 0) {
         setHitLinePos(getRight(), getTop(),
                       getLeft(), getTop(),
                       getLeft(), getBot());
         setSide('R');
         setSide('B');
     }
-    else if(vel.x<0 && vel.y==0){
+    else if (vel.x < 0 && vel.y == 0) {
         setHitLinePos(getLeft(), getTop(),
                       getLeft(), halfH,
                       getLeft(), getBot());
         setSide('R');
     }
-    else if(vel.x<0 && vel.y>0){
+    else if (vel.x < 0 && vel.y > 0) {
         setHitLinePos(getLeft(), getTop(),
                       getLeft(), getBot(),
                       getRight(), getBot());
         setSide('R');
         setSide('T');
     }
-    else if(vel.x==0 && vel.y>0){
+    else if (vel.x == 0 && vel.y > 0) {
         setHitLinePos(getLeft(), getBot(),
                       halfW, getBot(),
                       getRight(), getBot());
         setSide('T');
     }
-    else if(vel.x>0 && vel.y>0){
+    else if (vel.x > 0 && vel.y > 0) {
         setHitLinePos(getLeft(), getBot(),
                       getRight(), getBot(),
                       getRight(), getTop());
@@ -356,24 +354,24 @@ bool Object::collisionDist(RectangleShape r, int &returnDist, Vector2i &tpCoord)
 
     checkCol();
 
-    if(L[0] || L[1] || L[2]){
+    if (L[0] || L[1] || L[2]) {
         //compare distances and set the pos to which ever is closest
-        for(int i=0;i<3;i++){
-            if(L[i]){
-                dist[i] = sqrt(pow((hitPos[i].x-hitLines[i*2].position.x),2) + pow((hitPos[i].y-hitLines[i*2].position.y),2));
+        for (int i = 0; i < 3; i++) {
+            if (L[i]) {
+                dist[i] = sqrt(pow((hitPos[i].x-hitLines[i*2].position.x), 2) + pow((hitPos[i].y-hitLines[i*2].position.y), 2));
             }
         }
 
         float minDist = 0;
-        for(int i=0;i<3;i++){
-            if(dist[i] != 0 & (minDist == 0 || dist[i] < minDist)){
+        for (int i = 0; i < 3; i++) {
+            if (dist[i] != 0 && (minDist == 0 || dist[i] < minDist)) {
                 minDist = dist[i];
             }
         }
 
         //sets right hitpos depending on which is closest
-        for(int i=0;i<3;i++){
-            if(minDist == dist[i]){
+        for (int i = 0; i < 3; i++) {
+            if (minDist == dist[i]) {
                 tpCoord = Vector2i(hitPos[i]-(hitLines[i*2].position - (Vector2f)pos));
                 break;
             }
@@ -385,34 +383,34 @@ bool Object::collisionDist(RectangleShape r, int &returnDist, Vector2i &tpCoord)
 }
 
 
-int Object::getTop(){
+int Object::getTop() {
     return pos.y;
 }
 
-int Object::getBot(){
-    return pos.y+height;
+int Object::getBot() {
+    return pos.y + height;
 }
 
-int Object::getLeft(){
+int Object::getLeft() {
     return pos.x;
 }
 
-int Object::getRight(){
-    return pos.x+width;
+int Object::getRight() {
+    return pos.x + width;
 }
 
-void Object::setBot(int a){
-    pos.y=a-height;
+void Object::setBot(int a) {
+    pos.y = a - height;
 
 }
 
-void Object::setSca(float a){
-    setScale(a,a);
+void Object::setSca(float a) {
+    setScale(a, a);
     scale = a;
     updateSize();
 }
 
-void Object::updateSize(){
+void Object::updateSize() {
     width = getGlobalBounds().width;
     height = getGlobalBounds().height;
 }

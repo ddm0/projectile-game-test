@@ -6,8 +6,7 @@
 
 extern "C" int screenheight,screenwidth;
 
-namespace WallHandler
-{
+namespace WallHandler {
     void createMainWall();
     void createTopWall();
     void createBotWall();
