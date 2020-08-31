@@ -52,6 +52,13 @@ int ObjectHandler::getPlayerCount() {
     return playerCount;
 }
 
+bool ObjectHandler::isBallOutOfBounds() {
+    return (getBall(0).pos.y > 1280 ||
+            getBall(0).pos.y < 0 ||
+            getBall(0).pos.x > 1280 ||
+            getBall(0).pos.x < 0);
+}
+
 Ball& ObjectHandler::getBall(int i) {
     return ball[i];
 }

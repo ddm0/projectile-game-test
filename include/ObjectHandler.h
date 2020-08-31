@@ -12,6 +12,7 @@ namespace ObjectHandler {
     void updateObjects();
     int getBallCount();
     int getPlayerCount();
+    bool isBallOutOfBounds();
     Ball& getBall(int i);
     Player& getPlayer(int i);
 };

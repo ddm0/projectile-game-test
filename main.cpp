@@ -55,11 +55,12 @@ int main()
             frame=0;
         }
 
-        if (ObjectHandler::getBall(0).pos.y>1280 || ObjectHandler::getBall(0).pos.y<0 || ObjectHandler::getBall(0).pos.x > 1280 || ObjectHandler::getBall(0).pos.x < 0) {
+        if (ObjectHandler::isBallOutOfBounds()) {
             exit(0);
         }
     }
 
+    win.close();
     return 0;
 }
 
