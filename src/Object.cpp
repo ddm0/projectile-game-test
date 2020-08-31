@@ -358,25 +358,11 @@ bool Object::collisionDist(RectangleShape r, int &returnDist, Vector2i &tpCoord)
 
     if(L[0] || L[1] || L[2]){
         //compare distances and set the pos to which ever is closest
-
-        /*
-        std::cout << "L1: " << L[0] << std::endl;
-        std::cout << "L2: " << L[1] << std::endl;
-        std::cout << "L3: " << L[2] << std::endl;
-
-        */
-
         for(int i=0;i<3;i++){
             if(L[i]){
                 dist[i] = sqrt(pow((hitPos[i].x-hitLines[i*2].position.x),2) + pow((hitPos[i].y-hitLines[i*2].position.y),2));
             }
         }
-
-        /*
-        std::cout << "dist0: " << dist[0] << std::endl;
-        std::cout << "dist1: " << dist[1] << std::endl;
-        std::cout << "dist2: " << dist[2] << std::endl;
-        */
 
         float minDist = 0;
         for(int i=0;i<3;i++){
@@ -384,19 +370,6 @@ bool Object::collisionDist(RectangleShape r, int &returnDist, Vector2i &tpCoord)
                 minDist = dist[i];
             }
         }
-
-
-        /*
-        std::cout << "hitpos1 x: " << hitPos[0].x << std::endl;
-        std::cout << "hitpos1 y: " << hitPos[0].y << std::endl << std::endl;
-
-        std::cout << "hitpos2 x: " << hitPos[1].x << std::endl;
-        std::cout << "hitpos2 y: " << hitPos[1].y << std::endl << std::endl;
-
-        std::cout << "hitpos3 x: " << hitPos[2].x << std::endl;
-        std::cout << "hitpos3 y: " << hitPos[2].y << std::endl << std::endl;
-        */
-
 
         //sets right hitpos depending on which is closest
         for(int i=0;i<3;i++){
@@ -408,7 +381,7 @@ bool Object::collisionDist(RectangleShape r, int &returnDist, Vector2i &tpCoord)
         returnDist = minDist;
         return true;
     }
-return false;
+    return false;
 }
 
 

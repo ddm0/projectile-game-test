@@ -15,7 +15,7 @@ void ObjectHandler::createBall(){
         ballCount++;
         ball.resize(ballCount);
     }
-    else std::cout<< "too many balls" << std::endl;
+    else std::cerr << "ERROR: Can't create ball. Too many balls exist." << std::endl;
 }
 
 void ObjectHandler::createPlayer(){
@@ -23,7 +23,7 @@ void ObjectHandler::createPlayer(){
         playerCount++;
         player.resize(playerCount);
     }
-    else std::cout << "too many players" << std::endl;
+    else std::cerr << "ERROR: Can't create player. Too many players exist." << std::endl;
 }
 
 
