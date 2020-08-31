@@ -4,8 +4,7 @@
 #include <Ball.h>
 #include <vector>
 
-namespace ObjectHandler
-{
+namespace ObjectHandler {
     void createBall();
     void createPlayer();
     void updateBalls();

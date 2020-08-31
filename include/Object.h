@@ -4,8 +4,7 @@
 #include <WallHandler.h>
 #include <TextureHandler.h>
 
-class Object : public sf::Sprite
-{
+class Object : public sf::Sprite {
     public:
         Object(sf::Texture& a);
         Vector2i pos;

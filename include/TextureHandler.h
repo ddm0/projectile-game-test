@@ -4,8 +4,7 @@
 
 using namespace sf;
 
-namespace TextureHandler
-{
+namespace TextureHandler {
     void init();
     Texture& getBallTexture();
     Texture& getPlayerTexture();

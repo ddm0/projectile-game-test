@@ -10,16 +10,16 @@ namespace ObjectHandler
     std::vector<Player> player;
 }
 
-void ObjectHandler::createBall(){
-   if (ballCount < maxBall){
+void ObjectHandler::createBall() {
+    if (ballCount < maxBall) {
         ballCount++;
         ball.resize(ballCount);
     }
     else std::cerr << "ERROR: Can't create ball. Too many balls exist." << std::endl;
 }
 
-void ObjectHandler::createPlayer(){
-    if(playerCount < maxPlayer){
+void ObjectHandler::createPlayer() {
+    if (playerCount < maxPlayer) {
         playerCount++;
         player.resize(playerCount);
     }
@@ -27,38 +27,35 @@ void ObjectHandler::createPlayer(){
 }
 
 
-void ObjectHandler::updateBalls(){
-   for(int i = 0; i<ballCount; i++){
+void ObjectHandler::updateBalls() {
+   for (int i = 0; i < ballCount; i++) {
         getBall(i).update();
    }
 }
 
-void ObjectHandler::updatePlayers(){
-   for(int i = 0; i<playerCount; i++){
+void ObjectHandler::updatePlayers() {
+   for (int i = 0; i < playerCount; i++) {
         getPlayer(i).update();
    }
 }
 
-void ObjectHandler::updateObjects(){
+void ObjectHandler::updateObjects() {
     updatePlayers();
     updateBalls();
 }
 
-int ObjectHandler::getBallCount(){
+int ObjectHandler::getBallCount() {
     return ballCount;
 }
 
-int ObjectHandler::getPlayerCount(){
+int ObjectHandler::getPlayerCount() {
     return playerCount;
 }
 
-Ball& ObjectHandler::getBall(int i){
+Ball& ObjectHandler::getBall(int i) {
     return ball[i];
 }
 
-Player& ObjectHandler::getPlayer(int i){
+Player& ObjectHandler::getPlayer(int i) {
     return player[i];
 }
-
-
-

@@ -1,6 +1,6 @@
 #include "WallHandler.h"
 
-namespace WallHandler{
+namespace WallHandler {
     int mainWallCount = 0;
     int extraWallCount = 0;
     const int maxMainWall = 4;
@@ -9,15 +9,15 @@ namespace WallHandler{
     std::vector<Wall> extrawall;
 }
 
-void WallHandler::createMainWall(){
-    if(mainWallCount < maxMainWall){
+void WallHandler::createMainWall() {
+    if (mainWallCount < maxMainWall) {
         mainWallCount++;
         mainwall.resize(mainWallCount);
     }
 }
 
-void WallHandler::createExtraWall(Vector2f pos, Vector2f size){
-    if(extraWallCount < maxExtraWall){
+void WallHandler::createExtraWall(Vector2f pos, Vector2f size) {
+    if (extraWallCount < maxExtraWall) {
         extraWallCount++;
         extrawall.resize(extraWallCount);
         extrawall[extraWallCount-1].setSize(size);
@@ -25,26 +25,26 @@ void WallHandler::createExtraWall(Vector2f pos, Vector2f size){
     }
 }
 
-void WallHandler::createTopWall(){
+void WallHandler::createTopWall() {
     mainwall[0].setSize(Vector2f(screenwidth, 50));
 }
 
-void WallHandler::createBotWall(){
+void WallHandler::createBotWall() {
     mainwall[1].setSize(Vector2f(screenwidth, 50));
-    mainwall[1].setPosition(0,screenheight-50);
+    mainwall[1].setPosition(0, screenheight - 50);
 }
 
-void WallHandler::createLeftWall(){
+void WallHandler::createLeftWall() {
     mainwall[2].setSize(Vector2f(50, screenheight));
 }
 
-void WallHandler::createRightWall(){
+void WallHandler::createRightWall() {
     mainwall[3].setSize(Vector2f(50, screenheight));
-    mainwall[3].setPosition(screenwidth-50,0);
+    mainwall[3].setPosition(screenwidth - 50, 0);
 }
 
-void WallHandler::createMainWalls(){
-    for(int i=0;i<4;i++){
+void WallHandler::createMainWalls() {
+    for (int i = 0; i < 4; i++) {
         createMainWall();
     }
     createTopWall();
@@ -53,31 +53,31 @@ void WallHandler::createMainWalls(){
     createRightWall();
 }
 
-Wall& WallHandler::getMainWall(int i){
+Wall& WallHandler::getMainWall(int i) {
     return mainwall[i];
 }
 
-Wall& WallHandler::getExtraWall(int i){
+Wall& WallHandler::getExtraWall(int i) {
     return extrawall[i];
 }
 
-int WallHandler::getExtraWallCount(){
+int WallHandler::getExtraWallCount() {
     return extraWallCount;
 }
 
-Wall& WallHandler::getTopWall(){
+Wall& WallHandler::getTopWall() {
     return mainwall[0];
 }
 
-Wall& WallHandler::getBotWall(){
+Wall& WallHandler::getBotWall() {
     return mainwall[1];
 }
 
-Wall& WallHandler::getLeftWall(){
+Wall& WallHandler::getLeftWall() {
     return mainwall[2];
 }
 
-Wall& WallHandler::getRightWall(){
+Wall& WallHandler::getRightWall() {
     return mainwall[3];
 }
 
