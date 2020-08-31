@@ -1,6 +1,6 @@
 #include "BoxHandler.h"
 
-namespace BoxHandler {
+namespace {
     const int maxBox = 10;
     int boxCount = 0;
     std::vector<sf::RectangleShape> box;

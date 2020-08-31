@@ -1,7 +1,6 @@
 #include "ObjectHandler.h"
 
-namespace ObjectHandler
-{
+namespace {
     const int maxBall = 3;
     const int maxPlayer = 2;
     int ballCount = 0;

@@ -1,6 +1,6 @@
 #include "DrawHandler.h"
 
-namespace DrawHandler {
+namespace {
     bool displayBoxes = true;
 }
 

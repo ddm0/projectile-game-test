@@ -1,6 +1,6 @@
 #include "WallHandler.h"
 
-namespace WallHandler {
+namespace {
     int mainWallCount = 0;
     int extraWallCount = 0;
     const int maxMainWall = 4;
