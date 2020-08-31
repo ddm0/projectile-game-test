@@ -42,7 +42,8 @@ int main()
             }
         }
 
-        ObjectHandler::updateObjects();
+
+        ObjectHandler::updateAllObjects();
         DrawHandler::drawAll();
         win.draw(ObjectHandler::getBall(0).hitLines);
         win.draw(ObjectHandler::getPlayer(0).hitLines);
