@@ -27,21 +27,21 @@ void ObjectHandler::createPlayer() {
 }
 
 
-void ObjectHandler::updateBalls() {
+void ObjectHandler::updateAllBalls() {
    for (int i = 0; i < ballCount; i++) {
         getBall(i).update();
    }
 }
 
-void ObjectHandler::updatePlayers() {
+void ObjectHandler::updateAllPlayers() {
    for (int i = 0; i < playerCount; i++) {
         getPlayer(i).update();
    }
 }
 
-void ObjectHandler::updateObjects() {
-    updatePlayers();
-    updateBalls();
+void ObjectHandler::updateAllObjects() {
+    updateAllPlayers();
+    updateAllBalls();
 }
 
 int ObjectHandler::getBallCount() {

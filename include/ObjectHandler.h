@@ -7,9 +7,9 @@
 namespace ObjectHandler {
     void createBall();
     void createPlayer();
-    void updateBalls();
-    void updatePlayers();
-    void updateObjects();
+    void updateAllBalls();
+    void updateAllPlayers();
+    void updateAllObjects();
     int getBallCount();
     int getPlayerCount();
     bool isBallOutOfBounds();
