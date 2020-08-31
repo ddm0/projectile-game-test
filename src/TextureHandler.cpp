@@ -1,6 +1,6 @@
 #include "TextureHandler.h"
 
-namespace TextureHandler {
+namespace {
     Texture ball;
     Texture player;
 }
