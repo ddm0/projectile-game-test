@@ -13,7 +13,6 @@ void Player::update(){
         if(swingTimer>0){
             if(swingBox->getGlobalBounds().intersects(ObjectHandler::getBall(0).getGlobalBounds())){
                 ObjectHandler::getBall(0).setSpeed(0);
-                std::cout << "set speed to 0" << std::endl;
             }
             swingTimer--;
         }

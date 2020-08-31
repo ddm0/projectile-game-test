@@ -12,26 +12,21 @@ void Ball::angleupdate(){
     //if it is against x and y for two rectangles (concave) OR corner intersects extra (convex) flip angle
     if(isAgainstAnyX() & isAgainstAnyY()){
         angle+=180;
-        std::cout<< "first 180+" <<std::endl;
         return;
     }
     else{
         for(int i = 0;i<WallHandler::getExtraWallCount();i++){
             if(isCornerIntersect(WallHandler::getExtraWall(i))){
                 angle+=180;
-                std::cout << "second 180+" <<std::endl;
                 return;
             }
         }
     }
 
-
     if(isAgainstAnyX()){
-        std::cout << "anyx" << std::endl;
         angle=180-angle;
     }
     else if(isAgainstAnyY()){
-        std::cout << "anyy" << std::endl;
         angle=360-angle;
     }
 }
@@ -52,8 +47,6 @@ void Ball::update(){
         }
     }
 
-
-
     vel.x=cosd(angle)*speed;
     vel.y=-sind(angle)*speed;
 
@@ -64,12 +57,10 @@ void Ball::update(){
 
     for(int i=0; i<4; i++){
         bool hit = collisionDist(WallHandler::getMainWall(i),dist,linePos);
-        std::cout << "dist: " << dist << std::endl;
         if(hit & (mindist == 0 || dist < mindist)){
             mindist = dist;
             minLinePos = linePos;
         }
-
 
         if(i<WallHandler::getExtraWallCount()){
             bool hit2 = collisionDist(WallHandler::getExtraWall(i),dist,linePos);
@@ -80,15 +71,7 @@ void Ball::update(){
         }
     }
 
-
-
-
-    //std::cout<< "right line posx = " <<rightLinePos.x << std::endl;
-    //std::cout<< "right line posy = " <<rightLinePos.y << std::endl;
-
     if(mindist != 0){
-        std::cout << "mindist" << mindist << std::endl;
-        std::cout <<"minLinePos.x" << minLinePos.x << std::endl;
         pos=minLinePos;
     }
     else{

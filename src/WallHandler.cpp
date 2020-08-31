@@ -13,7 +13,6 @@ void WallHandler::createMainWall(){
     if(mainWallCount < maxMainWall){
         mainWallCount++;
         mainwall.resize(mainWallCount);
-        std::cout << "main wall made" << std::endl;
     }
 }
 
@@ -21,7 +20,6 @@ void WallHandler::createExtraWall(Vector2f pos, Vector2f size){
     if(extraWallCount < maxExtraWall){
         extraWallCount++;
         extrawall.resize(extraWallCount);
-        std::cout << "extra wall made" << std::endl;
         extrawall[extraWallCount-1].setSize(size);
         extrawall[extraWallCount-1].setPosition(pos);
     }
