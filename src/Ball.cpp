@@ -3,7 +3,7 @@
 Ball::Ball(): Object (TextureHandler::getBallTexture()) {
     pos.x = 800;
     pos.y = 439;
-    move(pos.x, pos.y);
+    sprite.move(pos.x, pos.y);
 }
 
 void Ball::angleupdate() {
@@ -74,7 +74,7 @@ void Ball::update() {
     } else {
         pos += vel;
     }
-    setPosition((float)pos.x, (float)pos.y);
+    sprite.setPosition((float)pos.x, (float)pos.y);
 }
 
 void Ball::setSpeed(int s) {

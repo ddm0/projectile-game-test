@@ -1,8 +1,6 @@
 #ifndef PLAYER_H
 #define PLAYER_H
-#include <Object.h> //when including object it includes everything that object includes
-
-
+#include <Object.h>
 
 class Player: public Object{
     public:

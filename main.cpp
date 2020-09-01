@@ -23,11 +23,10 @@ int main()
         #ifndef DEBUG
         std::cerr << "frame: " << frame << std::endl;
         std::cerr << "angle: " << (ObjectHandler::getBall(0).angle) << std::endl;
-        std::cerr << "bx: " << ObjectHandler::getBall(0).pos.x << std::endl;
-        std::cerr << "by: " << ObjectHandler::getBall(0).pos.y << std::endl;
-        std::cerr << "bvx: " << ObjectHandler::getBall(0).vel.x << std::endl;
-        std::cerr << "bvy: " << ObjectHandler::getBall(0).vel.y << std::endl;
-        std::cerr << "angle: " << ObjectHandler::getBall(0).angle << std::endl;
+        std::cerr << "bx: " << ObjectHandler::getBall(0).getPos().x << std::endl;
+        std::cerr << "by: " << ObjectHandler::getBall(0).getPos().y << std::endl;
+        std::cerr << "bvx: " << ObjectHandler::getBall(0).getVel().x << std::endl;
+        std::cerr << "bvy: " << ObjectHandler::getBall(0).getVel().x << std::endl;
         std::cerr << std::endl;
         #endif
 
@@ -41,7 +40,6 @@ int main()
                 }
             }
         }
-
 
         ObjectHandler::updateAllObjects();
         DrawHandler::drawAll();

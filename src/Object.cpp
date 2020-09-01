@@ -1,8 +1,9 @@
 #include "Object.h"
 
-Object::Object(sf::Texture& a): sf::Sprite(a) {
-    width = getGlobalBounds().width;
-    height = getGlobalBounds().height;
+Object::Object(sf::Texture& t) {
+    sprite = sf::Sprite(t);
+    width = t.getSize().x;
+    height = t.getSize().y;
 
     for (int i = 0; i < 6; i++) {
         hitLines[i].color = sf::Color::Green;
@@ -18,25 +19,25 @@ bool Object::isCornerIntersect(Wall& a) {
 }
 
 bool Object::isAgainstTop(Wall& a) {
-    return segmentIntersectsRectangle(getGlobalBounds(),
+    return segmentIntersectsRectangle(sprite.getGlobalBounds(),
                                       sf::Vector2f(a.getLeft() + 1, a.getTop()),
                                       sf::Vector2f(a.getRight() - 1, a.getTop())
                                       );
 }
 bool Object::isAgainstBot(Wall& a) {
-    return segmentIntersectsRectangle(getGlobalBounds(),
+    return segmentIntersectsRectangle(sprite.getGlobalBounds(),
                                       sf::Vector2f(a.getLeft() + 1, a.getBot()),
                                       sf::Vector2f(a.getRight() - 1, a.getBot())
                                       );
 }
 bool Object::isAgainstLeft(Wall& a) {
-    return segmentIntersectsRectangle(getGlobalBounds(),
+    return segmentIntersectsRectangle(sprite.getGlobalBounds(),
                                       sf::Vector2f(a.getLeft(), a.getTop() + 1),
                                       sf::Vector2f(a.getLeft(), a.getBot() - 1)
                                       );
 }
 bool Object::isAgainstRight(Wall& a) {
-    return segmentIntersectsRectangle(getGlobalBounds(),
+    return segmentIntersectsRectangle(sprite.getGlobalBounds(),
                                       sf::Vector2f(a.getRight() + 1, a.getTop() + 1),
                                       sf::Vector2f(a.getRight() + 1, a.getBot() - 1)
                                       );
@@ -47,45 +48,6 @@ bool Object::isAgainst(Wall& a) {
     }
     return false;
 }
-
-/*
-bool Object::isAgainstTop(Object a) {
-    return isAgainstTop(a.getGlobalBounds());
-}
-bool Object::isAgainstBot(Object a) {
-    return isAgainstBot(a.getGlobalBounds());
-}
-bool Object::isAgainstLeft(Object a) {
-    return isAgainstLeft(a.getGlobalBounds());
-}
-bool Object::isAgainstRight(Object a) {
-    return isAgainstRight(a.getGlobalBounds());
-}
-bool Object::isAgainst(Object a) {
-    return isAgainst(a.getGlobalBounds());
-}
-
-
-bool Object::isAgainstTop(sf::FloatRect a) {
-
-}
-
-bool Object::isAgainstBot(sf::FloatRect a) {
-
-}
-
-bool Object::isAgainstLeft(sf::FloatRect a) {
-
-}
-
-bool Object::isAgainstRight(sf::FloatRect a) {
-
-}
-
-bool Object::isAgainst(sf::FloatRect a) {
-
-}
-*/
 
 bool Object::isAgainstFloor() {
     return isAgainstTop(WallHandler::getBotWall());
@@ -136,22 +98,6 @@ bool Object::isAgainstAny() {
     }
     return false;
 }
-
-/*
-bool Object::isAgainstAny() {
-
-    if (isAgainstMain()) {
-        return true;
-    }
-
-    for (int i=0;i++;i<WallHandler::getExtraWallCount()) {
-        if (isAgainst(WallHandler::getExtraWall(i))) {
-            return true;
-        };
-    }
-    return false;
-}
-*/
 
 bool Object::isCornerInterAny() {
 
@@ -382,6 +328,17 @@ bool Object::collisionDist(RectangleShape r, int &returnDist, Vector2i &tpCoord)
     return false;
 }
 
+sf::Vector2i Object::getPos() {
+    return pos;
+}
+
+sf::Vector2i Object::getVel() {
+    return vel;
+}
+
+void Object::draw(sf::RenderTarget& t) {
+    t.draw(sprite);
+}
 
 int Object::getTop() {
     return pos.y;
@@ -405,12 +362,12 @@ void Object::setBot(int a) {
 }
 
 void Object::setSca(float a) {
-    setScale(a, a);
+    sprite.setScale(a, a);
     scale = a;
     updateSize();
 }
 
 void Object::updateSize() {
-    width = getGlobalBounds().width;
-    height = getGlobalBounds().height;
+    width = sprite.getGlobalBounds().width;
+    height = sprite.getGlobalBounds().height;
 }
