@@ -15,10 +15,10 @@ void DrawHandler::drawWalls() {
 
 void DrawHandler::drawObjects() {
     for (int i = 0; i < ObjectHandler::getBallCount(); i++) {
-        win.draw(ObjectHandler::getBall(i));
+        ObjectHandler::getBall(i).draw(win);
     }
     for (int i = 0; i < ObjectHandler::getPlayerCount(); i++) {
-        win.draw(ObjectHandler::getPlayer(i));
+        ObjectHandler::getPlayer(i).draw(win);
     }
 }
 

@@ -11,9 +11,6 @@ Player::Player(): Object (TextureHandler::getPlayerTexture()) {
 void Player::update() {
     if (isSwinging) {
         if (swingTimer > 0) {
-            if (swingBox->getGlobalBounds().intersects(ObjectHandler::getBall(0).getGlobalBounds())) {
-                ObjectHandler::getBall(0).setSpeed(0);
-            }
             swingTimer--;
         }
         else {
@@ -29,7 +26,7 @@ void Player::update() {
     input();
     updateV();
     updateX();
-    setPosition(pos.x, pos.y);
+    sprite.setPosition(pos.x, pos.y);
 }
 
 void Player::input() {
@@ -42,14 +39,14 @@ void Player::input() {
         if (Keyboard::isKeyPressed(Keyboard::Right)) {
             accelRight();
             if (!lookingRight) {
-                setTextureRect(IntRect(0,0,getTexture()->getSize().x,getTexture()->getSize().y));
+                sprite.setTextureRect(IntRect(0,0,sprite.getTexture()->getSize().x,sprite.getTexture()->getSize().y));
             }
             lookingRight = true;
         }
         else if (Keyboard::isKeyPressed(Keyboard::Left)) {
             accelLeft();
             if (lookingRight) {
-                setTextureRect(IntRect(getTexture()->getSize().x,0,-getTexture()->getSize().x,getTexture()->getSize().y));
+                sprite.setTextureRect(IntRect(sprite.getTexture()->getSize().x,0,-sprite.getTexture()->getSize().x,sprite.getTexture()->getSize().y));
             }
             lookingRight = false;
         }
@@ -75,12 +72,12 @@ void Player::swing() {
 
     BoxHandler::createBox();
     swingBox = BoxHandler::getBox(BoxHandler::getBoxCount() - 1);
-    swingBox->setSize(Vector2f(getGlobalBounds().width, getGlobalBounds().height));
+    swingBox->setSize(Vector2f(sprite.getGlobalBounds().width, sprite.getGlobalBounds().height));
     swingBox->setFillColor(sf::Color::Blue);
     if (lookingRight) {
-        swingBox->setPosition(pos.x + getGlobalBounds().width, pos.y);
+        swingBox->setPosition(pos.x + sprite.getGlobalBounds().width, pos.y);
     }
-    else swingBox->setPosition(pos.x - getGlobalBounds().width, pos.y);
+    else swingBox->setPosition(pos.x - sprite.getGlobalBounds().width, pos.y);
 }
 
 void Player::jump() {
@@ -126,8 +123,6 @@ void Player::updateV() {
 }
 
 void Player::updateX() {
-
     pos.x += vel.x;
     pos.y += vel.y;
-    //wallCollision();
 }
