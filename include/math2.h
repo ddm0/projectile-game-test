@@ -3,8 +3,6 @@
 #include <iostream>
 #include <math.h>
 
-#define M_PI (3.14159265358979323846)
-
 inline double cosd(double angle) {
     double angleradians = angle * M_PI / 180.0f;
     return cos(angleradians);
