@@ -42,6 +42,8 @@ class Object {
 
     protected:
         sf::Sprite sprite;
+        int width;
+        int height;
         float scale = 1;
         sf::Vector2i pos;
         sf::Vector2i vel;
@@ -49,8 +51,6 @@ class Object {
 
     private:
         void updateSize();
-        int width;
-        int height;
         bool segmentIntersectsRectangle(const sf::FloatRect& rect,
         const sf::Vector2f& a_p1, const sf::Vector2f& a_p2);
 };

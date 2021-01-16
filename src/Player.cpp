@@ -41,9 +41,10 @@ void Player::input() {
 		if(!Keyboard::isKeyPressed(Keyboard::Space)) {
 			isChargingTp = false;
 
-			sf::RenderWindow& r = DrawHandler::getWindow();
-			pos.x = sf::Mouse::getPosition(r).x;
-			pos.y = sf::Mouse::getPosition(r).y;
+			sf::Vector2i mp = sf::Mouse::getPosition(DrawHandler::getWindow()); 
+
+			pos.x = mp.x - width / 2;
+			pos.y = mp.y - height / 2;
 			
 			isChargingTp = false;
 			canMove = true;
