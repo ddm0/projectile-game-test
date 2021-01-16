@@ -33,6 +33,8 @@ class Player: public Object{
         bool lookingRight = true;
         bool canMove = true;
         sf::RectangleShape* swingBox;
+		
+		void teleport();
 };
 
 #endif // PLAYER_H

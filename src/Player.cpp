@@ -39,15 +39,10 @@ void Player::input() {
 
 	if (isChargingTp) {
 		if(!Keyboard::isKeyPressed(Keyboard::Space)) {
-			isChargingTp = false;
-
-			sf::Vector2i mp = sf::Mouse::getPosition(DrawHandler::getWindow()); 
-
-			pos.x = mp.x - width / 2;
-			pos.y = mp.y - height / 2;
-			
-			isChargingTp = false;
-			canMove = true;
+			teleport();
+			tpDistance = 0;
+		} else {
+			tpDistance++;
 		}
 	}
 	
@@ -85,6 +80,26 @@ void Player::input() {
 		vel.y = 0;
     }
 
+}
+
+void Player::teleport() {
+	isChargingTp = false;
+
+	sf::Vector2i playerp(pos.x + width / 2, pos.y + height / 2);
+	sf::Vector2i mousep = sf::Mouse::getPosition(DrawHandler::getWindow()); 
+
+	double angle = -atan(double(mousep.y - playerp.y) / (mousep.x - playerp.x));
+
+	if (mousep.x > playerp.x) {
+		pos.x += tpDistance * cos(angle);
+		pos.y -= tpDistance * sin(angle);
+	} else {
+		pos.x -= tpDistance * cos(angle);
+		pos.y += tpDistance * sin(angle);
+	}
+	
+	isChargingTp = false;
+	canMove = true;
 }
 
 void Player::swing() {

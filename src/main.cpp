@@ -17,7 +17,7 @@ int main()
 
     while (win.isOpen())
     {
-        #ifndef DEBUG
+        #ifdef DEBUG
         std::cerr << "frame: " << frame << std::endl;
         std::cerr << "angle: " << (ObjectHandler::getBall(0).angle) << std::endl;
         std::cerr << "bx: " << ObjectHandler::getBall(0).getPos().x << std::endl;
