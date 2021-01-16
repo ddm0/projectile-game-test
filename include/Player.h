@@ -21,8 +21,9 @@ class Player: public Object{
         bool isSwinging = false;
         int swingTimer;
 
-		bool isChargingTp = false;
-		int tpDistance = 0;
+		int tpCharge = 0;
+		int tpChargeRate = 5;
+		int tpMaxDistance = 200;
 
         float acc = 4;
         float deacc = 0.5;
@@ -35,6 +36,8 @@ class Player: public Object{
         sf::RectangleShape* swingBox;
 		
 		void teleport();
+		bool isTpCharging();
+		void chargeTp();
 };
 
 #endif // PLAYER_H

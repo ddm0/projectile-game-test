@@ -37,19 +37,19 @@ void Player::input() {
         swing();
     }
 
-	if (isChargingTp) {
+	if (isTpCharging()) {
 		if(!Keyboard::isKeyPressed(Keyboard::Space)) {
 			teleport();
-			tpDistance = 0;
 		} else {
-			tpDistance++;
+			chargeTp();
+		}
+	} else {
+		if (Keyboard::isKeyPressed(Keyboard::Space)) {
+			chargeTp();
+			canMove = false;
 		}
 	}
 	
-	if (Keyboard::isKeyPressed(Keyboard::Space)) {
-		isChargingTp = true;
-		canMove = false;
-	}
 
     //movement
     if (canMove) {
@@ -83,23 +83,33 @@ void Player::input() {
 }
 
 void Player::teleport() {
-	isChargingTp = false;
 
+	double distance = (double)tpMaxDistance * tpCharge / 100;
 	sf::Vector2i playerp(pos.x + width / 2, pos.y + height / 2);
 	sf::Vector2i mousep = sf::Mouse::getPosition(DrawHandler::getWindow()); 
 
 	double angle = -atan(double(mousep.y - playerp.y) / (mousep.x - playerp.x));
 
 	if (mousep.x > playerp.x) {
-		pos.x += tpDistance * cos(angle);
-		pos.y -= tpDistance * sin(angle);
+		pos.x += distance * cos(angle);
+		pos.y -= distance * sin(angle);
 	} else {
-		pos.x -= tpDistance * cos(angle);
-		pos.y += tpDistance * sin(angle);
+		pos.x -= distance * cos(angle);
+		pos.y += distance * sin(angle);
 	}
 	
-	isChargingTp = false;
+	tpCharge = 0;
 	canMove = true;
+}
+
+bool Player::isTpCharging() {
+	return tpCharge != 0;
+}
+
+void Player::chargeTp() {
+	if (tpCharge <= 100) {
+		tpCharge += tpChargeRate;
+	}
 }
 
 void Player::swing() {
