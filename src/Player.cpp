@@ -2,6 +2,9 @@
 #include "ObjectHandler.h"
 #include "BoxHandler.h"
 
+#include <SFML/Window/Mouse.hpp>
+#include "DrawHandler.h"
+
 Player::Player(): Object (TextureHandler::getPlayerTexture()) {
     setSca(0.4);
     pos.x = 600;
@@ -34,6 +37,24 @@ void Player::input() {
         swing();
     }
 
+	if (isChargingTp) {
+		if(!Keyboard::isKeyPressed(Keyboard::Space)) {
+			isChargingTp = false;
+
+			sf::RenderWindow& r = DrawHandler::getWindow();
+			pos.x = sf::Mouse::getPosition(r).x;
+			pos.y = sf::Mouse::getPosition(r).y;
+			
+			isChargingTp = false;
+			canMove = true;
+		}
+	}
+	
+	if (Keyboard::isKeyPressed(Keyboard::Space)) {
+		isChargingTp = true;
+		canMove = false;
+	}
+
     //movement
     if (canMove) {
         if (Keyboard::isKeyPressed(Keyboard::Right)) {
@@ -57,18 +78,12 @@ void Player::input() {
 		else {
 			deAccelY();
 		}
-
-
     }
     else {
         vel.x = 0;
 		vel.y = 0;
     }
 
-    //jump
-    if (Keyboard::isKeyPressed(Keyboard::C) && isAgainstFloor()) {
-        accelUp();
-    }
 }
 
 void Player::swing() {

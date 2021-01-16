@@ -11,6 +11,7 @@ namespace DrawHandler {
     void drawObjects();
     void drawBoxes();
     void drawAll();
+	RenderWindow& getWindow();
 };
 
 #endif // DRAWHANDLER_H

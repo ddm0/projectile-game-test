@@ -36,3 +36,7 @@ void DrawHandler::drawAll() {
     }
     drawObjects();
 }
+	
+RenderWindow& DrawHandler::getWindow() {
+	return win;
+}

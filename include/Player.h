@@ -21,6 +21,9 @@ class Player: public Object{
         bool isSwinging = false;
         int swingTimer;
 
+		bool isChargingTp = false;
+		int tpDistance = 0;
+
         float acc = 4;
         float deacc = 0.5;
         float jumpv = 30;
