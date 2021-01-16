@@ -8,10 +8,12 @@ class Player: public Object{
         void update();
         void input();
         void swing();
-        void jump();
         void accelRight();
         void accelLeft();
-        void deAccel();
+		void accelUp();
+		void accelDown();
+        void deAccelX();
+        void deAccelY();
         void updateV();
         void updateX();
 
@@ -22,7 +24,7 @@ class Player: public Object{
         float acc = 4;
         float deacc = 0.5;
         float jumpv = 30;
-        float gravity = 2;
+        float gravity = 0;
         float vmin = 1;
         float vmax = 10;
         bool lookingRight = true;

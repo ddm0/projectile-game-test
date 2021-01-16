@@ -34,34 +34,40 @@ void Player::input() {
         swing();
     }
 
-    //x movement
+    //movement
     if (canMove) {
         if (Keyboard::isKeyPressed(Keyboard::Right)) {
             accelRight();
-            if (!lookingRight) {
-                sprite.setTextureRect(IntRect(0,0,sprite.getTexture()->getSize().x,sprite.getTexture()->getSize().y));
-            }
             lookingRight = true;
         }
         else if (Keyboard::isKeyPressed(Keyboard::Left)) {
             accelLeft();
-            if (lookingRight) {
-                sprite.setTextureRect(IntRect(sprite.getTexture()->getSize().x,0,-sprite.getTexture()->getSize().x,sprite.getTexture()->getSize().y));
-            }
             lookingRight = false;
         }
         else {
-            deAccel();
+            deAccelX();
         }
+		
+		if (Keyboard::isKeyPressed(Keyboard::Up)) {
+			accelUp();
+		}
+		else if (Keyboard::isKeyPressed(Keyboard::Down)) {
+			accelDown();
+		}
+		else {
+			deAccelY();
+		}
+
+
     }
     else {
         vel.x = 0;
+		vel.y = 0;
     }
 
     //jump
     if (Keyboard::isKeyPressed(Keyboard::C) && isAgainstFloor()) {
-        jump();
-        ObjectHandler::createBall();
+        accelUp();
     }
 }
 
@@ -80,46 +86,39 @@ void Player::swing() {
     else swingBox->setPosition(pos.x - sprite.getGlobalBounds().width, pos.y);
 }
 
-void Player::jump() {
-    vel.y = -jumpv;
+void Player::accelUp() {
+    vel.y = clamp(vel.y - acc, -vmax, vmax);
 }
+
+void Player::accelDown() {
+    vel.y = clamp(vel.y + acc, -vmax, vmax);
+}
+
 void Player::accelRight() {
     vel.x = clamp(vel.x + acc, -vmax, vmax);
 }
+
 void Player::accelLeft() {
     vel.x = clamp(vel.x - acc, -vmax, vmax);
 }
-void Player::deAccel() {
+
+void Player::deAccelX() {
     vel.x *= deacc;
 }
-void Player::updateV() {
-    //stops tiny speed
-    if (vel.x > 0 && vel.x < 1) {
-        vel.x = 0;
-    }
-    if (vel.x < 0 && vel.x > -1) {
-        vel.x = 0;
-    }
 
+void Player::deAccelY() {
+    vel.y *= deacc;
+}
+
+void Player::updateV() {
     //collision check
     if ((isAgainstLeftWall() && vel.x < 0) || (isAgainstRightWall() && vel.x > 0)) {
-        vel.x = 0;
+        vel.x = -vel.x;
     }
 
-    //gravity check
-    if (!isAgainstFloor()) {
-        //fix this if for high diagonal v
-        if (getBot() + vel.y > WallHandler::getBotWall().getTop()) {
-            setBot(WallHandler::getBotWall().getTop() - 1);
-            vel.y = 0;
-        }
-        else {
-            vel.y += gravity;
-        }
-    }
-    else if (vel.y > 0) {
-        vel.y = 0;
-    }
+	if ((isAgainstCeiling() && vel.y < 0) || (isAgainstFloor() && vel.y > 0)) {
+		vel.y = -vel.y;
+	}
 }
 
 void Player::updateX() {

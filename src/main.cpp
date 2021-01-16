@@ -14,9 +14,6 @@ int main()
     ObjectHandler::createPlayer();
     ObjectHandler::createBall();
     WallHandler::createMainWalls();
-    WallHandler::createExtraWall(sf::Vector2f(300,645),sf::Vector2f(200,25));
-    WallHandler::createExtraWall(sf::Vector2f(780,645),sf::Vector2f(200,25));
-    WallHandler::createExtraWall(sf::Vector2f(540,200),sf::Vector2f(200,25));
 
     while (win.isOpen())
     {
